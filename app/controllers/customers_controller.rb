@@ -9,7 +9,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-    render json: @customers
+    render json: @customer
   end
 
   def destroy
