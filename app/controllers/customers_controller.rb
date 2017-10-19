@@ -39,6 +39,6 @@ class CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:name, :zip, :services, :max_prcie, :best_day, :best_time)
+    params.require(:customer).permit(:name, :zip, :services, :max_price, :best_day, :best_time)
   end
 end
