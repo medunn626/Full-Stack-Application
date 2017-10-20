@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :appointments
   resources :barbers
   resources :examples, except: %i[new edit]
   post '/sign-up' => 'users#signup'
@@ -10,4 +11,5 @@ Rails.application.routes.draw do
   resources :users, only: %i[index show]
   resources :customers, except: %i[new edit]
   resources :barbers, except: %i[new edit]
+  resources :appointments, except: %i[new edit]
 end
