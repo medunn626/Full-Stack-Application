@@ -1,4 +1,5 @@
 curl --include --request POST "http://localhost:4741/customers" \
+--header "Authorization: Token token=${TOKEN}" \
 --header "Content-Type: application/json" \
 --data '{
   "customer": {

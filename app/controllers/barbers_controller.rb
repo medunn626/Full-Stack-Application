@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BarbersController < ApplicationController
+class BarbersController < OpenReadController
   before_action :set_barber, only: %i[show update destroy]
 
   # GET /barbers

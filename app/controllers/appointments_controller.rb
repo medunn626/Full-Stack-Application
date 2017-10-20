@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AppointmentsController < ApplicationController
+class AppointmentsController < ProtectedController
   before_action :set_appointment, only: %i[show update destroy]
 
   # GET /appointments

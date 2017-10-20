@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class CustomersController < ApplicationController
-  before_action :set_customer, only: %i[show destroy update]
+class CustomersController < ProtectedController
+  before_action :set_customer, only: %i[show update destroy]
 
   def index
     @customers = Customer.all
@@ -12,9 +12,13 @@ class CustomersController < ApplicationController
     render json: @customer
   end
 
-  def destroy
-    @customer.destroy
-    head :no_content
+  def create
+    @customer = Customer.new(customer_params)
+    if @customer.save
+      render json: @customer
+    else
+      render json: @customer.errors, status: :unprocessable_entity
+    end
   end
 
   def update
@@ -25,14 +29,12 @@ class CustomersController < ApplicationController
     end
   end
 
-  def create
-    @customer = Customer.new(customer_params)
-    if @customer.save
-      render json: @customer
-    else
-      render json: @customer.errors, status: :unprocessable_entity
-    end
+  def destroy
+    @customer.destroy
+    head :no_content
   end
+
+  private
 
   def set_customer
     @customer = Customer.find(params[:id])
