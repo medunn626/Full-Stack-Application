@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019235949) do
+ActiveRecord::Schema.define(version: 20171021031957) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 20171019235949) do
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["barber_id"], name: "index_appointments_on_barber_id"
     t.index ["customer_id"], name: "index_appointments_on_customer_id"
+    t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
   create_table "barbers", force: :cascade do |t|
@@ -48,6 +50,8 @@ ActiveRecord::Schema.define(version: 20171019235949) do
     t.time "best_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
   create_table "examples", force: :cascade do |t|
@@ -70,5 +74,7 @@ ActiveRecord::Schema.define(version: 20171019235949) do
 
   add_foreign_key "appointments", "barbers"
   add_foreign_key "appointments", "customers"
+  add_foreign_key "appointments", "users"
+  add_foreign_key "customers", "users"
   add_foreign_key "examples", "users"
 end

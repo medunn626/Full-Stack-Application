@@ -17,8 +17,8 @@ class AppointmentsController < ProtectedController
 
   # POST /appointments
   def create
-    @appointment = Appointment.new(appointment_params)
-
+    @appointment = current_user.appointments.build(appointment_params)
+    # @appointment = Appointment.new(appointment_params)
     if @appointment.save
       render json: @appointment, status: :created, location: @appointment
     else
@@ -44,7 +44,8 @@ class AppointmentsController < ProtectedController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_appointment
-    @appointment = Appointment.find(params[:id])
+    @appointment = current_user.appointments.find(params[:id])
+    # @appointment = Appointment.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
