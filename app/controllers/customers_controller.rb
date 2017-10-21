@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CustomersController < ProtectedController
-  before_action :set_customer, only: %i[index update destroy]
+  before_action :set_customer, only: %i[index update]
 
   def index
     render json: @customer
@@ -29,10 +29,11 @@ class CustomersController < ProtectedController
     end
   end
 
-  def destroy
-    @customer.destroy
-    head :no_content
-  end
+  # Deleting a customer is pointless. All users are customers.
+  # def destroy
+  #   @customer.destroy
+  #   head :no_content
+  # end
 
   private
 

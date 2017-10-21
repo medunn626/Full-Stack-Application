@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BarbersController < OpenReadController
-  before_action :set_barber, only: %i[show update destroy]
+  before_action :set_barber, only: %i[show update]
 
   # GET /barbers
   def index
@@ -35,10 +35,10 @@ class BarbersController < OpenReadController
     end
   end
 
-  # DELETE /barbers/1
-  def destroy
-    @barber.destroy
-  end
+  # Don't allow deletion of barbers
+  # def destroy
+  #   @barber.destroy
+  # end
 
   private
 
