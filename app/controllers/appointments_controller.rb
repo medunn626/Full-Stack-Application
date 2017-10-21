@@ -5,9 +5,8 @@ class AppointmentsController < ProtectedController
 
   # GET /appointments
   def index
-    @appointments = Appointment.all
-
-    render json: @appointments
+    @appointments = current_user.appointments
+    render json: @user_selected_categories
   end
 
   # GET /appointments/1
@@ -16,13 +15,21 @@ class AppointmentsController < ProtectedController
   end
 
   # POST /appointments
+  # def create
+  #   @appointment = current_user.appointments.build(appointment_params)
+  #   if @appointment.save
+  #     render json: @appointment, status: :created, location: @appointment
+  #   else
+  #     render json: @appointment.errors, status: :unprocessable_entity
+  #   end
+  # end
+
   def create
-    @appointment = current_user.appointments.build(appointment_params)
-    # @appointment = Appointment.new(appointment_params)
-    if @appointment.save
-      render json: @appointment, status: :created, location: @appointment
+    appointment = Appointment.create(appointment_params)
+    if appointment.valid?
+      render json: appointment, status: :created
     else
-      render json: @appointment.errors, status: :unprocessable_entity
+      render json: appointment.errors, status: :bad_request
     end
   end
 
@@ -38,6 +45,7 @@ class AppointmentsController < ProtectedController
   # DELETE /appointments/1
   def destroy
     @appointment.destroy
+    head :no_content
   end
 
   private
@@ -50,6 +58,6 @@ class AppointmentsController < ProtectedController
 
   # Only allow a trusted parameter "white list" through.
   def appointment_params
-    params.require(:appointment).permit(:customer_id, :barber_id, :date)
+    params.require(:appointment).permit(:customer_id, :barber_id, :date, :user_id)
   end
 end
