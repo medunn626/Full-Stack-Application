@@ -6,7 +6,7 @@ class AppointmentsController < ProtectedController
   # GET /appointments
   def index
     @appointments = current_user.appointments
-    render json: @user_selected_categories
+    render json: @appointments
   end
 
   # GET /appointments/1
@@ -15,15 +15,6 @@ class AppointmentsController < ProtectedController
   end
 
   # POST /appointments
-  # def create
-  #   @appointment = current_user.appointments.build(appointment_params)
-  #   if @appointment.save
-  #     render json: @appointment, status: :created, location: @appointment
-  #   else
-  #     render json: @appointment.errors, status: :unprocessable_entity
-  #   end
-  # end
-
   def create
     appointment = Appointment.create(appointment_params)
     if appointment.valid?
