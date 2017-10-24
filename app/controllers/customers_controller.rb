@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 class CustomersController < ProtectedController
-  before_action :set_customer, only: %i[index update]
+  before_action :set_customer, only: %i[index show update]
 
   def index
     render json: @customer
   end
 
   # Since there will always be just 1 customer, no need to specify ID:
-  # def show
-  #   render json: @customer
-  # end
+  def show
+    render json: @customer
+  end
 
   def create
     customer = Customer.create(customer_params)
