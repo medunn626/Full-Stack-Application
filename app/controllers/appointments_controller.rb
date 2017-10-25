@@ -26,7 +26,7 @@ class AppointmentsController < ProtectedController
 
   # PATCH/PUT /appointments/1
   def update
-    if @appointment.update(appointment_params)
+    if @appointment.update(appointment_params_update)
       render json: @appointment
     else
       render json: @appointment.errors, status: :unprocessable_entity
@@ -50,5 +50,9 @@ class AppointmentsController < ProtectedController
   # Only allow a trusted parameter "white list" through.
   def appointment_params
     params.require(:appointment).permit(:customer_id, :barber_id, :date, :user_id)
+  end
+
+  def appointment_params_update
+    params.require(:appointment).permit(:date, :user_id)
   end
 end
