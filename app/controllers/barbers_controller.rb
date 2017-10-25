@@ -26,7 +26,7 @@ class BarbersController < OpenReadController
     end
   end
 
-  # PATCH/PUT /barbers/1
+  # Don't allow this in client
   def update
     if @barber.update(barber_params)
       render json: @barber
@@ -35,7 +35,7 @@ class BarbersController < OpenReadController
     end
   end
 
-  # Don't allow deletion of barbers (Comment the below out when ready)
+  # Don't allow this in client
   def destroy
     @barber.destroy
   end

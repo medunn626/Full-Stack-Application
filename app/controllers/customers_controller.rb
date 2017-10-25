@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class CustomersController < ProtectedController
-  before_action :set_customer, only: %i[index show update]
+  before_action :set_customer, only: %i[index show update destroy]
 
   def index
     render json: @customer
   end
 
-  # Since there will always be just 1 customer, no need to specify ID:
+  # Since there will always be just 1 customer, no need for this in client:
   def show
     render json: @customer
   end
@@ -21,6 +21,7 @@ class CustomersController < ProtectedController
     end
   end
 
+  # Don't allow this in client
   def update
     if @customer.update(customer_params)
       render json: @customer
@@ -29,11 +30,11 @@ class CustomersController < ProtectedController
     end
   end
 
-  # Deleting a customer is pointless. All users are customers.
-  # def destroy
-  #   @customer.destroy
-  #   head :no_content
-  # end
+  # Not needed in client since customers are the users thus can't delete
+  def destroy
+    @customer.destroy
+    head :no_content
+  end
 
   private
 
