@@ -1,6 +1,7 @@
 ## FindMy Barber:
 
 URL to Front-End: https://medunn626.github.io/Full-Stack-Application_Front-End/
+
 URL to API: https://fast-cliffs-72027.herokuapp.com/
 
 The FindMy Barber app is a way for customers to find barbers in the area that meet their needs based on location, hairstyle, max price and most convienent time and day of the week (as well as how highly rated the barber is). It is a connection builder between the customer and the barber as much as it is a way for customers to share information with each other by recommending barbers.
