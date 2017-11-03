@@ -10,20 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102111125) do
+ActiveRecord::Schema.define(version: 20171103212607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.bigint "customer_id"
     t.bigint "barber_id"
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["barber_id"], name: "index_appointments_on_barber_id"
-    t.index ["customer_id"], name: "index_appointments_on_customer_id"
     t.index ["user_id"], name: "index_appointments_on_user_id"
   end
 
@@ -75,7 +73,6 @@ ActiveRecord::Schema.define(version: 20171102111125) do
   end
 
   add_foreign_key "appointments", "barbers"
-  add_foreign_key "appointments", "customers"
   add_foreign_key "appointments", "users"
   add_foreign_key "barbers", "users"
   add_foreign_key "customers", "users"

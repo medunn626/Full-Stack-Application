@@ -47,10 +47,6 @@ class AppointmentsController < ProtectedController
 
   # Only allow a trusted parameter "white list" through.
   def appointment_params
-    params.require(:appointment).permit(:customer_id, :barber_id, :date)
+    params.require(:appointment).permit(:barber_id, :date)
   end
-
-  # def appointment_params_update
-  #   params.require(:appointment).permit(:date, :user_id)
-  # end
 end

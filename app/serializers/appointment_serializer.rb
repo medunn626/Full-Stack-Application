@@ -2,6 +2,5 @@
 
 class AppointmentSerializer < ActiveModel::Serializer
   attributes :id, :date, :user_id
-  has_one :customer
   has_one :barber
 end

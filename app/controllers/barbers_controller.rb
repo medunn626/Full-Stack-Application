@@ -17,16 +17,6 @@ class BarbersController < OpenReadController
   end
 
   # POST /barbers
-  # def create
-  #   @barber = Barber.new(barber_params)
-  #
-  #   if @barber.save
-  #     render json: @barber, status: :created, location: @barber
-  #   else
-  #     render json: @barber.errors, status: :unprocessable_entity
-  #   end
-  # end
-
   def create
     @barber = current_user.barbers.build(barber_params)
     if @barber.save
