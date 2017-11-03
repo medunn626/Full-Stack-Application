@@ -5,4 +5,5 @@ class User < ApplicationRecord
   # has_many :examples
   has_one :customer
   has_many :appointments
+  has_many :barbers
 end

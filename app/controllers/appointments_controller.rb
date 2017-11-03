@@ -15,12 +15,21 @@ class AppointmentsController < ProtectedController
   end
 
   # POST /appointments
+  # def create
+  #   appointment = Appointment.create(appointment_params)
+  #   if appointment.valid?
+  #     render json: appointment, status: :created
+  #   else
+  #     render json: appointment.errors, status: :bad_request
+  #   end
+  # end
+
   def create
-    appointment = Appointment.create(appointment_params)
-    if appointment.valid?
-      render json: appointment, status: :created
+    @appointment = current_user.appointments.build(appointment_params)
+    if @appointment.save
+      render json: @appointment, status: :created
     else
-      render json: appointment.errors, status: :bad_request
+      render json: @appointment.errors, status: :unprocessable_entity
     end
   end
 
@@ -49,7 +58,7 @@ class AppointmentsController < ProtectedController
 
   # Only allow a trusted parameter "white list" through.
   def appointment_params
-    params.require(:appointment).permit(:customer_id, :barber_id, :date, :user_id)
+    params.require(:appointment).permit(:customer_id, :barber_id, :date)
   end
 
   def appointment_params_update

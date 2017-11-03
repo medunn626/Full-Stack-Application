@@ -13,11 +13,11 @@ class CustomersController < ProtectedController
   end
 
   def create
-    customer = Customer.create(customer_params)
-    if customer.valid?
-      render json: customer, status: :created
+    @customer = current_user.build_customer(customer_params)
+    if @customer.save
+      render json: @customer, status: :created
     else
-      render json: customer.errors, status: :bad_request
+      render json: @customer.errors, status: :unprocessable_entity
     end
   end
 
@@ -43,6 +43,6 @@ class CustomersController < ProtectedController
   end
 
   def customer_params
-    params.require(:customer).permit(:name, :zip, :services, :max_price, :best_day, :best_time, :user_id)
+    params.require(:customer).permit(:name, :zip, :services, :max_price, :best_day, :best_time)
   end
 end

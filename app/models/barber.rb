@@ -3,4 +3,5 @@
 class Barber < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_many :customers, through: :appointments
+  belongs_to :user
 end

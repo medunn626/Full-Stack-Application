@@ -5,7 +5,6 @@ curl --include --request POST "http://localhost:4741/appointments" \
   "appointment": {
     "customer_id": "'"${CUSTOMER_ID}"'",
     "barber_id": "'"${BARBER_ID}"'",
-    "date": "'"${DATE}"'",
-    "user_id": "'"${USER_ID}"'"
+    "date": "'"${DATE}"'"
   }
 }'
