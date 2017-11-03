@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class BarbersController < OpenReadController
-  before_action :set_barber, only: %i[show update destroy]
+  before_action :set_barber_private, only: %i[update destroy]
+  before_action :set_barber_public, only: %i[show]
 
   # GET /barbers
   def index
@@ -16,11 +17,20 @@ class BarbersController < OpenReadController
   end
 
   # POST /barbers
-  def create
-    @barber = Barber.new(barber_params)
+  # def create
+  #   @barber = Barber.new(barber_params)
+  #
+  #   if @barber.save
+  #     render json: @barber, status: :created, location: @barber
+  #   else
+  #     render json: @barber.errors, status: :unprocessable_entity
+  #   end
+  # end
 
+  def create
+    @barber = current_user.barbers.build(barber_params)
     if @barber.save
-      render json: @barber, status: :created, location: @barber
+      render json: @barber, status: :created
     else
       render json: @barber.errors, status: :unprocessable_entity
     end
@@ -43,8 +53,12 @@ class BarbersController < OpenReadController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_barber
+  def set_barber_public
     @barber = Barber.find(params[:id])
+  end
+
+  def set_barber_private
+    @barber = current_user.barbers.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.

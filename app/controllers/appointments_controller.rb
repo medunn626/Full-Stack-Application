@@ -14,16 +14,6 @@ class AppointmentsController < ProtectedController
     render json: @appointment
   end
 
-  # POST /appointments
-  # def create
-  #   appointment = Appointment.create(appointment_params)
-  #   if appointment.valid?
-  #     render json: appointment, status: :created
-  #   else
-  #     render json: appointment.errors, status: :bad_request
-  #   end
-  # end
-
   def create
     @appointment = current_user.appointments.build(appointment_params)
     if @appointment.save
@@ -35,7 +25,7 @@ class AppointmentsController < ProtectedController
 
   # PATCH/PUT /appointments/1
   def update
-    if @appointment.update(appointment_params_update)
+    if @appointment.update(appointment_params)
       render json: @appointment
     else
       render json: @appointment.errors, status: :unprocessable_entity
@@ -53,7 +43,6 @@ class AppointmentsController < ProtectedController
   # Use callbacks to share common setup or constraints between actions.
   def set_appointment
     @appointment = current_user.appointments.find(params[:id])
-    # @appointment = Appointment.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
@@ -61,7 +50,7 @@ class AppointmentsController < ProtectedController
     params.require(:appointment).permit(:customer_id, :barber_id, :date)
   end
 
-  def appointment_params_update
-    params.require(:appointment).permit(:date, :user_id)
-  end
+  # def appointment_params_update
+  #   params.require(:appointment).permit(:date, :user_id)
+  # end
 end
